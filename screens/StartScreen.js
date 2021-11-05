@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, TouchableWithoutFeedback } from "react-native";
 
 const StartScreen = ({ navigation }) => {
   const btnPressed = () => {
-    console.log("Start button was pressed");
+    console.log("Start button was pressed", "now");
     navigation.navigate("Game");
   };
   return (
