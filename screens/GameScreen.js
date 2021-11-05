@@ -18,14 +18,16 @@ const GameScreen = () => {
   const [start, setStart] = useState(true);
   const [num, seNum] = useState(genRan(1, 99));
   const [selected, setSelected] = useState(0);
+  const [won, setWon] = useState(false);
   const [mes, setMes] = useState(
     <Text style={styles.titleTxt}>I have a number, click to guess.</Text>
   );
   const [count, setCount] = useState(0);
 
   const playGame = (opt) => {
-    !start && setStart(true);
+    // !start && setStart(true);
     setCount(count + 1);
+    opt == num && setWon(true);
     setSelected(opt);
   };
 
@@ -37,9 +39,9 @@ const GameScreen = () => {
     genRan(40, 99),
   ]);
   useEffect(() => {
-    selected == num && console.log("You won");
-    console.log(num, selected);
-    if (count == 3 || count > 3) {
+    // selected == num && console.log("You won");
+    // console.log(num, selected);
+    if (count == 3 || (count > 3 && !won)) {
       setStart(false);
       setMes(
         <Text style={styles.titleTxt}>
@@ -47,7 +49,7 @@ const GameScreen = () => {
           <Text style={{ fontSize: 28, color: "blue" }}>{num}</Text>
         </Text>
       );
-    } else if (count == 1) {
+    } else if (count == 1 && !won) {
       const ranNum = genRan(30, 50);
       setMes(
         <Text style={styles.titleTxt}>
@@ -56,7 +58,7 @@ const GameScreen = () => {
           <Text style={{ fontSize: 28, color: "green" }}>{num + ranNum}</Text>
         </Text>
       );
-    } else if (count == 2) {
+    } else if (count == 2 && !won) {
       const newRan = genRan(5, 10);
       setMes(
         <Text style={styles.titleTxt}>
@@ -65,10 +67,13 @@ const GameScreen = () => {
           <Text style={{ fontSize: 28, color: "green" }}>{num * newRan}</Text>
         </Text>
       );
+    } else if (won) {
+      setCount(0), setWon(false);
+      setStart(false);
+      setMes(<Text style={styles.titleTxt}>Alright smarty!, you won :)</Text>);
     }
   }, [start, selected]);
 
-  useEffect(() => {}, [count]);
   const userOpt = options.sort(() => Math.random() - 0.5);
   return (
     <View style={globalStyles.container}>
@@ -77,7 +82,7 @@ const GameScreen = () => {
         {start &&
           userOpt?.map((opt) => {
             return (
-              <TouchableWithoutFeedback onPress={() => playGame(opt)}>
+              <TouchableWithoutFeedback onPress={() => playGame(opt)} key={opt}>
                 <Text style={styles.btnText}>{opt}</Text>
               </TouchableWithoutFeedback>
             );
@@ -109,5 +114,6 @@ const styles = StyleSheet.create({
     fontSize: 25,
     marginBottom: 20,
     fontWeight: "bold",
+    textAlign: "center",
   },
 });
