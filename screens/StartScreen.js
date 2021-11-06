@@ -3,12 +3,12 @@ import { View, Text, StyleSheet, TouchableWithoutFeedback } from "react-native";
 
 const StartScreen = ({ navigation }) => {
   const btnPressed = () => {
-    console.log("Start button was pressed", "now");
+    // console.log("Start button was pressed", "now");
     navigation.navigate("Game");
   };
   return (
     <View style={styles.container}>
-      <Text>Welcome to the start screen</Text>
+      <Text style={styles.titleTxt}>Welcome to the start screen</Text>
       <TouchableWithoutFeedback
         style={styles.startBtnCont}
         onPress={btnPressed}
@@ -40,5 +40,11 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
+  },
+  titleTxt: {
+    fontSize: 25,
+    marginBottom: 20,
+    fontWeight: "bold",
+    textAlign: "center",
   },
 });
