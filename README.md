@@ -3,7 +3,7 @@
 > A basic react native guessing game
 > It is meant to allow users have fun playing little maths guessing games
 
-![screenshot](/screenshot.jpg)
+![screenshot](/screenshot.gif)
 
 ## Built With
 
